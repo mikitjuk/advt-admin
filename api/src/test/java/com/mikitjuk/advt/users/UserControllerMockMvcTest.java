@@ -27,6 +27,14 @@ public class UserControllerMockMvcTest extends AdvtApplicationTests {
     }
 
     @Test
+    @WithMockUser(roles = "ADOPS")
+    public void shouldGetUsersByAdops() throws Exception {
+        mockMvc.perform(get("/api/users")
+                .with(postProcessor))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()", is(3)));
+    }
+    @Test
     @ExpectedDatabase(value = "classpath:datasets/expected/ExpectedCreateUsers.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
     @WithMockUser(roles = "ADMIN")
@@ -40,6 +48,17 @@ public class UserControllerMockMvcTest extends AdvtApplicationTests {
                 .andExpect(jsonPath("$.name", is(testUserDto.getName())))
                 .andExpect(jsonPath("$.email", is(testUserDto.getEmail())))
                 .andExpect(jsonPath("$.role", is(testUserDto.getRole().toString())));
+    }
+
+    @Test
+    @WithMockUser(roles = "ADOPS")
+    public void shouldNotCreateUserIsForbiddenByRole() throws Exception {
+        UserDto testUserDto = createTestUserDto();
+
+        mockMvc.perform(post("/api/user")
+                .with(postProcessor)
+                .content(objectMapper.writeValueAsString(testUserDto)))
+                .andExpect(status().isForbidden());
     }
 
     @Test

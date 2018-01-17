@@ -20,6 +20,7 @@ import java.util.List;
         typeClass = PsqlEnum.class)
 @Entity
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_seq")
     @SequenceGenerator(name = "users_id_seq", sequenceName = "users_id_seq", allocationSize = 1)

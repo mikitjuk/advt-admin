@@ -12,7 +12,6 @@
     <bytecodeTargetLevel>
       <module name="advt-admin" target="1.5" />
       <module name="api" target="1.8" />
-      <module name="ui" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -26,19 +26,28 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AppControllerMockMvcTest extends AdvtApplicationTests {
 
     @Test
-    @WithMockUser(username = "test user 10", roles = "PUBLISHER")
+    @WithMockUser(roles = "ADOPS")
     public void getApps() throws Exception {
         mockMvc.perform(get("/api/apps")
                 .with(postProcessor))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.size()", is(2)));
+                .andExpect(jsonPath("$.size()", is(6)));
+    }
+
+    @Test
+    @WithMockUser(username = "test12@test.com", roles = "PUBLISHER")
+    public void getAppsByPublisher() throws Exception {
+        mockMvc.perform(get("/api/apps")
+                .with(postProcessor))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()", is(3)));
     }
 
     @Test
     @ExpectedDatabase(value = "classpath:datasets/expected/ExpectedCreateApps.xml",
             table = "apps",
             assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
-    @WithMockUser(roles = "PUBLISHER")
+    @WithMockUser(username = "test12@test.com", roles = "PUBLISHER")
     public void shouldAddApp() throws Exception {
         AppDto appDto = createTestAppDto();
 
@@ -67,7 +76,7 @@ public class AppControllerMockMvcTest extends AdvtApplicationTests {
     @ExpectedDatabase(value = "classpath:datasets/expected/ExpectedUpdateApps.xml",
             table = "apps",
             assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
-    @WithMockUser(roles = "PUBLISHER")
+    @WithMockUser(roles = "ADOPS")
     public void shouldUpdateApp() throws Exception {
         AppDto appDto = createTestAppDto();
         appDto.setId(10);
@@ -86,7 +95,7 @@ public class AppControllerMockMvcTest extends AdvtApplicationTests {
     @ExpectedDatabase(value = "classpath:datasets/expected/ExpectedDeleteApps.xml",
             table = "apps",
             assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
-    @WithMockUser(roles = "PUBLISHER")
+    @WithMockUser(roles = "ADOPS")
     public void deleteApp() throws Exception {
         mockMvc.perform(delete("/api/apps/10")
                 .with(postProcessor))

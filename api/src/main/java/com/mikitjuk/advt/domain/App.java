@@ -20,6 +20,9 @@ import java.util.Set;
 @TypeDef(name = "pgsql_enum", typeClass = PsqlEnum.class)
 @Entity
 public class App {
+
+    public static final String USER = "user";
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "apps_id_seq")
     @SequenceGenerator(name = "apps_id_seq", sequenceName = "apps_id_seq", allocationSize = 1)
@@ -40,5 +43,9 @@ public class App {
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
+
+
+//    @Column(name = "user_id", insertable = false, updatable = false)
+//    private Integer userId;
 
 }

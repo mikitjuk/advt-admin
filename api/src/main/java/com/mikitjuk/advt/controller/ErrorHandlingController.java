@@ -1,5 +1,6 @@
 package com.mikitjuk.advt.controller;
 
+import com.mikitjuk.advt.exception.ForbiddenException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
@@ -42,6 +43,13 @@ public class ErrorHandlingController {
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
 	public void handleBindException(BindException exception) {
 		log.warn(exception.getMessage());
+	}
+
+	@ExceptionHandler({ForbiddenException.class})
+	@ResponseStatus(HttpStatus.FORBIDDEN)
+	@ResponseBody
+	public void forbiddenHandler(ForbiddenException ex) {
+		log.error(ex.getMessage(), ex);
 	}
 
 	@ExceptionHandler({AccessDeniedException.class})
