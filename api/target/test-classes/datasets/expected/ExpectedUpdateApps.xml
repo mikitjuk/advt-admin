@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dataset>
-    <apps id="10" name="app test" type="ANDROID" user_id="10" />
-    <apps id="11" name="test app 11" user_id="10" />
-
-</dataset>

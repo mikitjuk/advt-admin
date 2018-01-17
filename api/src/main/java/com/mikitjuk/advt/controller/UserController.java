@@ -19,6 +19,11 @@ public class UserController {
     @Autowired
     private UserConverter userConverter;
 
+    @PostMapping("/login")
+    public signUp(@RequestBody User user) {
+        user.login(user.getEmail());
+    }
+
     @GetMapping(Api.Users.USERS)
 //    @PreAuthorize("hasAnyRole('ADMIN', 'ADOPS')")
     public List<UserDto> getUsers() {
