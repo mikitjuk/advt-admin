@@ -1,9 +1,8 @@
 package com.mikitjuk.advt.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mikitjuk.advt.domain.AppType;
-import com.mikitjuk.advt.domain.ContentType;
-import com.mikitjuk.advt.domain.User;
+import com.mikitjuk.advt.entity.types.AppType;
+import com.mikitjuk.advt.entity.types.ContentType;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,7 +16,7 @@ public class AppDto {
     private String name;
     private AppType type;
     @JsonProperty("content_types")
-    private Set<ContentType> contentTypes;
+    private List<ContentType> contentTypes;
     @JsonProperty("user_id")
     private Integer userId;
 }

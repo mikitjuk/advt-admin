@@ -4,7 +4,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import com.mikitjuk.advt.AdvtApplicationTests;
-import com.mikitjuk.advt.domain.UserRole;
+import com.mikitjuk.advt.entity.types.UserRole;
 import com.mikitjuk.advt.model.UserDto;
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithMockUser;

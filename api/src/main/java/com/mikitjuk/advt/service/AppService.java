@@ -1,20 +1,21 @@
 package com.mikitjuk.advt.service;
 
-import com.mikitjuk.advt.domain.App;
-import com.mikitjuk.advt.domain.UserRole;
-import com.mikitjuk.advt.domain.repository.AppRepository;
+import com.mikitjuk.advt.entity.App;
+import com.mikitjuk.advt.entity.types.UserRole;
+import com.mikitjuk.advt.entity.repository.AppRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class AppService {
     @Autowired
     private AppRepository appRepository;
     @Autowired
     private SecurityProviderService securityProviderService;
-
 
     public List<App> getApps() {
         return securityProviderService.checkRole(UserRole.PUBLISHER)
@@ -23,17 +24,17 @@ public class AppService {
     }
 
     public App createNewApp(App app) {
-        securityProviderService.checkAccessApp(app);
+        securityProviderService.checkAccessApps(app);
         return appRepository.save(app);
     }
 
     public App updateApp(App app) {
-        securityProviderService.checkAccessApp(app);
+        securityProviderService.checkAccessApps(app);
         return appRepository.save(app);
     }
 
     public void deleteApp(Integer appId) {
-        securityProviderService.checkAccessApp(appRepository.getOne(appId));
+        securityProviderService.checkAccessApps(appRepository.getOne(appId));
         appRepository.deleteById(appId);
     }
 }

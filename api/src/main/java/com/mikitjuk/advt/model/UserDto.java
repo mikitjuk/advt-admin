@@ -1,6 +1,6 @@
 package com.mikitjuk.advt.model;
 
-import com.mikitjuk.advt.domain.UserRole;
+import com.mikitjuk.advt.entity.types.UserRole;
 import lombok.Builder;
 import lombok.Data;
 

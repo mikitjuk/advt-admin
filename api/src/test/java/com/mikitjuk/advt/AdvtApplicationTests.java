@@ -42,24 +42,24 @@ public abstract class AdvtApplicationTests {
 	protected ObjectMapper objectMapper;
 	@Autowired
 	protected ApplicationContext applicationContext;
-	@Autowired
-	private DataSource dataSource;
+//	@Autowired
+//	private DataSource dataSource;
 
 	protected RequestPostProcessor postProcessor = request -> {
 		request.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		return request;
 	};
 
-	@Before
-	protected void setUp() throws Exception {
-		databaseConfigBean.setDatatypeFactory(new PostgresqlDataTypeFactory(){
-			public boolean isEnumType(String sqlTypeName) {
-				if(sqlTypeName.equalsIgnoreCase("abc_enum")){
-					return true;
-				}
-				return false;
-			}
-		});
-
-	}
+//	@Before
+//	protected void setUp() throws Exception {
+//		databaseConfigBean.setDatatypeFactory(new PostgresqlDataTypeFactory(){
+//			public boolean isEnumType(String sqlTypeName) {
+//				if(sqlTypeName.equalsIgnoreCase("abc_enum")){
+//					return true;
+//				}
+//				return false;
+//			}
+//		});
+//
+//	}
 }

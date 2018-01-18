@@ -4,17 +4,13 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import com.mikitjuk.advt.AdvtApplicationTests;
-import com.mikitjuk.advt.domain.AppType;
-import com.mikitjuk.advt.domain.ContentType;
-import com.mikitjuk.advt.domain.UserRole;
+import com.mikitjuk.advt.entity.types.AppType;
+import com.mikitjuk.advt.entity.types.ContentType;
 import com.mikitjuk.advt.model.AppDto;
-import com.mikitjuk.advt.model.UserDto;
+import org.assertj.core.util.Lists;
 import org.assertj.core.util.Sets;
 import org.junit.Test;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.test.context.support.WithMockUser;
-
-import java.util.Arrays;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -106,7 +102,7 @@ public class AppControllerMockMvcTest extends AdvtApplicationTests {
         return AppDto.builder()
                 .name("app test")
                 .type(AppType.ANDROID)
-                .contentTypes(Sets.newLinkedHashSet(ContentType.HTML, ContentType.VIDEO))
+                .contentTypes(Lists.newArrayList(ContentType.HTML, ContentType.VIDEO))
                 .userId(10)
                 .build();
     }

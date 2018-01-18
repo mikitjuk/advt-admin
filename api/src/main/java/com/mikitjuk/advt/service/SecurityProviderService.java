@@ -1,10 +1,11 @@
 package com.mikitjuk.advt.service;
 
-import com.mikitjuk.advt.domain.App;
-import com.mikitjuk.advt.domain.User;
-import com.mikitjuk.advt.domain.UserRole;
-import com.mikitjuk.advt.domain.repository.UserRepository;
+import com.mikitjuk.advt.entity.App;
+import com.mikitjuk.advt.entity.User;
+import com.mikitjuk.advt.entity.types.UserRole;
+import com.mikitjuk.advt.entity.repository.UserRepository;
 import com.mikitjuk.advt.exception.ForbiddenException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 
 @Service
+@Slf4j
 public class SecurityProviderService {
 
 	@Autowired
@@ -22,6 +24,8 @@ public class SecurityProviderService {
 
 	public boolean checkRole(UserRole userRole) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		log.info(" Authentication = " + authentication.getAuthorities());
+		log.info("\n" + authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_" + userRole.toString())) + "\n");
 		return authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_" + userRole.toString()));
 	}
 
@@ -29,17 +33,18 @@ public class SecurityProviderService {
 		return userRepository.findByEmail(getEmailLoginUser());
 	}
 
-	public String getEmailLoginUser() {
+	private String getEmailLoginUser() {
+		log.info(" Authentication getEmailLoginUser - " + SecurityContextHolder.getContext().getAuthentication());
 		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
 
-	public void checkAccessByRole(User user, UserRole userRoleChecked) {
+	public void checkAccessUsers(User user, UserRole userRoleChecked) {
 		if (!checkRole(UserRole.ADMIN) && Objects.nonNull(user) && !user.getRole().equals(userRoleChecked)) {
 			throw new ForbiddenException("Not allow role user");
 		}
 	}
 
-	public void checkAccessApp(App app) {
+	public void checkAccessApps(App app) {
 		if (checkRole(UserRole.PUBLISHER) && !app.getUser().getEmail().equals(getEmailLoginUser())) {
 			throw new ForbiddenException("User registration only our app");
 		}

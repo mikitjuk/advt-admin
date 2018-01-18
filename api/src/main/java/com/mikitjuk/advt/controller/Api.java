@@ -4,6 +4,7 @@ public interface Api {
 
     String ROOT_PATH = "/api";
     String ID = "/{id}";
+    String AUTHENTICATE = "/authenticate";
 
     interface Account {
         String ACCOUNT = "/account";

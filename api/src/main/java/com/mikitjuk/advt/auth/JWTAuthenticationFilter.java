@@ -1,7 +1,7 @@
 package com.mikitjuk.advt.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mikitjuk.advt.domain.User;
+import com.mikitjuk.advt.entity.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,7 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 
 import static com.mikitjuk.advt.auth.SecurityConstants.*;
