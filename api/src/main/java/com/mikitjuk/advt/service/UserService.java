@@ -3,6 +3,7 @@ package com.mikitjuk.advt.service;
 import com.mikitjuk.advt.entity.User;
 import com.mikitjuk.advt.entity.types.UserRole;
 import com.mikitjuk.advt.entity.repository.UserRepository;
+import com.mikitjuk.advt.exception.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -42,6 +44,7 @@ public class UserService {
     }
 
     public User authenticate(String email) throws AuthenticationCredentialsNotFoundException {
-        return userRepository.findByEmail(email);
+        return Optional.ofNullable(userRepository.findByEmail(email))
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
 }

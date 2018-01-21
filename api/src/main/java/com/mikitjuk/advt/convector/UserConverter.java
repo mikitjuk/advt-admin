@@ -48,6 +48,7 @@ public class UserConverter {
                 .name(user.getName())
                 .email(user.getEmail())
                 .role(user.getRole())
+                .token("fake-jwt-token")
                 .build();
         log.info("User after convert " + userDto);
         return userDto;

@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
-  selector: 'app',
-  templateUrl: 'app.component.html',
-  styleUrls: ['./app.component.css']
+  // moduleId: module.id,
+  // selector: 'app-root',
+   templateUrl: 'app.component.html',
+  // styleUrls: ['./app.component.css']
+  selector: 'app-root',
+  // template: ` <router-outlet></router-outlet>`,
+  styles: []
+
 })
 
 export class AppComponent {

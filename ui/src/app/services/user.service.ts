@@ -14,7 +14,7 @@ export class UserService {
   }
 
   getById(id: number) {
-    return this.http.get(AppComponent.API_URL_USERS + id);
+    return this.http.get(AppComponent.API_URL_USERS + id, );
   }
 
   create(user: User) {

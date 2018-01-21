@@ -1,0 +1,15 @@
+<div class="col-md-6 col-md-offset-3">
+  <ul class="collection with-header">
+    <li class="collection-header"><h3>All registered users:</h3></li>
+    <li class="collection-item" *ngFor="let application of apps">
+      {{application.name}}
+      - {{application.type}}
+      - {{application.contentType && application.contentType.toLocaleString()}}
+      - {{application.userId}}
+      -
+      <a class="btn-floating waves-effect waves-light green"><i class="tiny material-icons" (click)="updateApp(app)">edit</i></a>
+      <a class="btn-floating waves-effect waves-light green"><i class="tiny material-icons" (click)="deleteApp(application.id)">clear</i></a>
+    </li>
+  </ul>
+  <p><a [routerLink]="['/login']">Logout</a></p>
+</div>

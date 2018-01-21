@@ -1,44 +1,68 @@
 package com.mikitjuk.advt.config;
 
-import com.mikitjuk.advt.auth.JWTAuthenticationFilter;
 import com.mikitjuk.advt.auth.JWTAuthorizationFilter;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import com.mikitjuk.advt.auth.JwtUtil;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
-@EnableAutoConfiguration
+@EnableWebSecurity
+//@EnableAutoConfiguration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurerAdapter() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**");
-            }
-        };
+    private UserDetailsService userDetailsService;
+
+    public SecurityConfiguration(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
+
+//    @Bean
+//    public JWTAuthenticationFilter getJwtAuthenticationFilter() throws Exception {
+//        JWTAuthenticationFilter jwtAuthenticationFilter = new JWTAuthenticationFilter(authenticationManager());
+//        jwtAuthenticationFilter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/api/authenticate","POST"));
+//        return jwtAuthenticationFilter;
+//    }
+
+//    @Override
+//    public void configure(AuthenticationManagerBuilder builder) throws Exception {
+//        builder.authenticationProvider(new CustomAuthenticationProvider());
+//    }
+
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+//        JWTAuthenticationFilter jwtAuthenticationFilter = new JWTAuthenticationFilter(authenticationManager());
+//        jwtAuthenticationFilter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/api/authenticate","POST"));
+
         http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/api/**").permitAll();
-//                .antMatchers("/api/app/**", "/api/apps/**").access("hasRole('ADOPS') or hasRole('PUBLISHER')")
-//                .antMatchers("/api/user/**", "/api/users/**").access("hasRole('ADOPS') or hasRole('ADMIN')")
-//                .anyRequest().authenticated()
-//                .and()
-//                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-//                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-                // this disables session creation on Spring Security
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .antMatchers(HttpMethod.POST, "/api/authenticate").permitAll()
+//                .antMatchers(HttpMethod.POST, "/api/**").permitAll();
+                .antMatchers("/api/app/**", "/api/apps/**").access("hasAuthority('ADOPS') or hasAuthority('PUBLISHER')")
+                .antMatchers("/api/user/**", "/api/users/**").access("hasAuthority('ADOPS') or hasAuthority('ADMIN')")
+                .anyRequest().authenticated()
+                .and()
+//                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilter(new JWTAuthorizationFilter(authenticationManager(), getJwtUtil()))
+//                 this disables session creation on Spring Security
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
+
+    @Bean
+    public JwtUtil getJwtUtil() {
+        return new JwtUtil();
     }
 
 

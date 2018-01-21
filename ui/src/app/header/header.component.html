@@ -1,0 +1,13 @@
+<nav>
+  <div class="nav-wrapper green">
+
+    <a href="#" class="brand-logo left"> Hi {{currentUser.email}}!</a>
+
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a routerLink="/apps">Приложения</a></li>
+      <li><a routerLink="/users">Пользователи</a></li>
+      <li><a routerLink="/login" (click)="onLogout()">Выход</a></li>
+    </ul>
+
+  </div>
+</nav>

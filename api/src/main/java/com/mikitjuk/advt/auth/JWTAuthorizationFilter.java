@@ -2,7 +2,7 @@ package com.mikitjuk.advt.auth;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -11,7 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import static com.mikitjuk.advt.auth.SecurityConstants.HEADER_STRING;
 import static com.mikitjuk.advt.auth.SecurityConstants.SECRET;
@@ -19,8 +18,11 @@ import static com.mikitjuk.advt.auth.SecurityConstants.TOKEN_PREFIX;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
-    public JWTAuthorizationFilter(AuthenticationManager authManager) {
+    private JwtUtil jwtUtil;
+
+    public JWTAuthorizationFilter(AuthenticationManager authManager, JwtUtil jwtUtil) {
         super(authManager);
+        this.jwtUtil = jwtUtil;
     }
 
     @Override
@@ -29,28 +31,21 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         String header = req.getHeader(HEADER_STRING);
 
         if (header == null || !header.startsWith(TOKEN_PREFIX)) {
+//            res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access Denied");
+
             chain.doFilter(req, res);
             return;
         }
-
-        UsernamePasswordAuthenticationToken authentication = getAuthentication(req);
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContextHolder.getContext().setAuthentication(getAuthentication(req));
         chain.doFilter(req, res);
     }
 
-    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+    private Authentication getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {
-            // parse the token.
-            String user = Jwts.parser()
-                    .setSigningKey(SECRET.getBytes())
-                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
-                    .getBody()
-                    .getSubject();
-
-            if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+            AuthJwtToken authJwtToken = jwtUtil.parseToken(token);
+            if (authJwtToken != null) {
+                return new UserAuthentication(authJwtToken);
             }
             return null;
         }

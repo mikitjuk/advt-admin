@@ -7,34 +7,42 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 // import { fakeBackendProvider } from './_helpers';
 
 import { AppComponent } from './app.component';
-import { routing } from './app.routing';
 
 import { AlertComponent } from './alert';
 import { AuthGuard } from './guard';
 import { JwtInterceptor } from './jwt';
-import {AlertService, ApplicationService, AuthenticationService, UserService} from './services';
-import { HomeComponent } from './home';
+import {AlertService, ApplicationService, AuthService, UserService} from './services';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './apps';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
+import { UsersComponent } from './users/users.component';
+import { HeaderComponent } from './header/header.component';
+import {HomeLayoutComponent} from "./layouts/home-layout.component";
+import {LoginLayoutComponent} from "./layouts/login-layout.component";
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    routing
+    AppRoutingModule
   ],
   declarations: [
     AppComponent,
     AlertComponent,
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    UsersComponent,
+    HomeLayoutComponent,
+    LoginLayoutComponent,
+    HeaderComponent
   ],
   providers: [
     AuthGuard,
     AlertService,
-    AuthenticationService,
+    AuthService,
     ApplicationService,
     UserService,
     {
