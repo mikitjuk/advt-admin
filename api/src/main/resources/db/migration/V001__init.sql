@@ -18,7 +18,6 @@ CREATE TABLE apps
   id SERIAL PRIMARY KEY,
   name VARCHAR(250),
   type app_type,
-  content_types content_type ARRAY,
   user_id INTEGER,
   CONSTRAINT apps_user_id_fk FOREIGN KEY (user_id)
   REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE
