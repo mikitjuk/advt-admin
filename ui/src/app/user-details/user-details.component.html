@@ -1,0 +1,39 @@
+<div class="col-md-6 col-md-offset-3">
+<section *ngIf="user">
+  <section>
+    <h4>You selected: {{user.name}}</h4>
+  </section>
+  <section>
+    <form (ngSubmit)="saveUserDetails()" #userForm="ngForm">
+      <div>
+        <label for="name">Name: </label>
+        <input type="text" name="name" required [(ngModel)]="user.name" #name="ngModel">
+        <div [hidden]="name.valid || name.pristine" class="error">
+          Name is required!
+        </div>
+        <p>
+          input "name" class is: {{ name.className }}
+        </p>
+      </div>
+      <div>
+        <label for="email">Email: </label>
+        <input type="text" name="Email" required [(ngModel)]="user.email" #email="ngModel">
+        <div [hidden]="email.valid || email.pristine" class="error">
+          Email is required!
+        </div>
+      </div>
+      <div>
+        <label for="role">Role:</label>
+        <select name="role" [(ngModel)]="user.role" class="browser-default">
+          <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+        </select>
+      </div>
+      <p></p>
+      <div class="form-group">
+        <button type="submit" [disabled]="!userForm.form.valid" class="btn btn-primary">Save</button>
+        <button (click)="gotoUsersList()" class="btn btn-primary">Back to users list</button>
+      </div>
+    </form>
+  </section>
+</section>
+</div>

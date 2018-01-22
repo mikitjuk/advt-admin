@@ -23,13 +23,11 @@ export class LoginComponent implements OnInit {
     // reset login status
     this.authenticationService.logout();
 
-    // get return url from route parameters or default to '/'
+    // get return url from route parameters or default to '/home'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'];
     if(!this.returnUrl || this.returnUrl === '/') {
-      this.returnUrl = '/apps';
+      this.returnUrl = '/home';
     }
-
-    // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/apps';
   }
 
   login() {

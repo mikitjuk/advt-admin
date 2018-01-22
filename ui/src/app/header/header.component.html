@@ -1,12 +1,12 @@
 <nav>
-  <div class="nav-wrapper green">
+  <div class="nav-wrapper  teal lighten-1">
 
-    <a href="#" class="brand-logo left"> Hi {{currentUser.email}}!</a>
+    <a routerLink="/home" class="brand-logo left"> ADVT - admin </a>
 
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a routerLink="/apps">Приложения</a></li>
-      <li><a routerLink="/users">Пользователи</a></li>
-      <li><a routerLink="/login" (click)="onLogout()">Выход</a></li>
+      <li><a routerLink="/apps">Applications</a></li>
+      <li><a routerLink="/users">Users</a></li>
+      <li><a routerLink="/login" (click)="onLogout()">Logout</a></li>
     </ul>
 
   </div>

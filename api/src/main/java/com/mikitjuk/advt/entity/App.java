@@ -46,9 +46,4 @@ public class App {
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
-
-
-//    @Column(name = "user_id", insertable = false, updatable = false)
-//    private Integer userId;
-
 }

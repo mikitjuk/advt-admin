@@ -1,6 +1,5 @@
 package com.mikitjuk.advt.auth;
 
-import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,10 +10,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
-import static com.mikitjuk.advt.auth.SecurityConstants.HEADER_STRING;
-import static com.mikitjuk.advt.auth.SecurityConstants.SECRET;
-import static com.mikitjuk.advt.auth.SecurityConstants.TOKEN_PREFIX;
+import static com.mikitjuk.advt.config.SecurityConstants.HEADER_STRING;
+import static com.mikitjuk.advt.config.SecurityConstants.TOKEN_PREFIX;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -31,8 +30,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         String header = req.getHeader(HEADER_STRING);
 
         if (header == null || !header.startsWith(TOKEN_PREFIX)) {
-//            res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access Denied");
-
             chain.doFilter(req, res);
             return;
         }
@@ -41,14 +38,9 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     private Authentication getAuthentication(HttpServletRequest request) {
-        String token = request.getHeader(HEADER_STRING);
-        if (token != null) {
-            AuthJwtToken authJwtToken = jwtUtil.parseToken(token);
-            if (authJwtToken != null) {
-                return new UserAuthentication(authJwtToken);
-            }
-            return null;
-        }
-        return null;
+        return Optional.ofNullable(request.getHeader(HEADER_STRING))
+                .map(jwtUtil::parseToken)
+                .map(UserAuthentication::new)
+                .orElse(null);
     }
 }

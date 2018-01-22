@@ -13,42 +13,20 @@ import java.util.stream.Collectors;
 public class UserConverter {
 
     public User convertDtoToEntity(UserDto userDto) {
-        User user = User.builder()
+        return User.builder()
                 .id(userDto.getId())
                 .name(userDto.getName())
                 .email(userDto.getEmail())
                 .role(userDto.getRole())
                 .build();
-
-
-//        new UserEntity();
-//        user.setUserId(userDto.getUserId());
-//        user.setEmail(userDto.getEmail());
-//        user.setFirstName(userDto.getFirstName());
-//        user.setLastName(userDto.getLastName());
-//        user.setMiddleName(userDto.getMiddleName());
-//        user.setPosition(userDto.getPosition());
-//        if (null != userDto.getLocaleKey()) {
-//            user.setLocaleKey(userDto.getLocaleKey());
-//        }
-//        user.setActivity(userDto.getActivity());
-//        user.setUserType(null != userDto.getUserTypeKey() ? UserType.builder().userTypeId(userDto.getUserTypeKey().getId()).build() : null);
-//        user.setPassword(userDto.getPlainPassword());
-//
-//        convertPhones(userDto, user);
-//        convertContacts(userDto, user);
-
-        return user;
     }
 
     public UserDto convertEntityToDto(User user) {
-        log.info("User before convert " + user);
         UserDto userDto = UserDto.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .email(user.getEmail())
                 .role(user.getRole())
-                .token("fake-jwt-token")
                 .build();
         log.info("User after convert " + userDto);
         return userDto;

@@ -23,12 +23,7 @@ public class AppService {
                 : appRepository.findAll();
     }
 
-    public App createNewApp(App app) {
-        securityProviderService.checkAccessApps(app);
-        return appRepository.save(app);
-    }
-
-    public App updateApp(App app) {
+    public App saveApp(App app) {
         securityProviderService.checkAccessApps(app);
         return appRepository.save(app);
     }

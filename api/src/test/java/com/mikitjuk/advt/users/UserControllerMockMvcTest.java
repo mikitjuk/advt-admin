@@ -37,7 +37,7 @@ public class UserControllerMockMvcTest extends AdvtApplicationTests {
     @Test
     @ExpectedDatabase(value = "classpath:datasets/expected/ExpectedCreateUsers.xml",
             assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
-    @WithMockUser(roles = "ADMIN")
+    @WithMockUser(authorities = "ADMIN")
     public void shouldCreateUser() throws Exception {
         UserDto testUserDto = createTestUserDto();
 
@@ -51,7 +51,7 @@ public class UserControllerMockMvcTest extends AdvtApplicationTests {
     }
 
     @Test
-    @WithMockUser(roles = "ADOPS")
+    @WithMockUser(authorities = "ADOPS")
     public void shouldNotCreateUserIsForbiddenByRole() throws Exception {
         UserDto testUserDto = createTestUserDto();
 
@@ -65,12 +65,12 @@ public class UserControllerMockMvcTest extends AdvtApplicationTests {
     @ExpectedDatabase(value = "classpath:datasets/expected/ExpectedUpdateUsers.xml",
             table = "users",
             assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
-    @WithMockUser(roles = "ADMIN")
+    @WithMockUser(authorities = "ADMIN")
     public void shouldUpdateUser() throws Exception {
         UserDto testUserDto = createTestUserDto();
         testUserDto.setId(10);
 
-        mockMvc.perform(put("/api/user")
+        mockMvc.perform(put("/api/users/10")
                 .with(postProcessor)
                 .content(objectMapper.writeValueAsString(testUserDto)))
                 .andExpect(status().isOk())
@@ -83,7 +83,7 @@ public class UserControllerMockMvcTest extends AdvtApplicationTests {
     @ExpectedDatabase(value = "classpath:datasets/expected/ExpectedDeleteUsers.xml",
             table = "users",
             assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
-    @WithMockUser(roles = "ADMIN")
+    @WithMockUser(authorities = "ADMIN")
     public void shouldDeleteUser() throws Exception {
         mockMvc.perform(delete("/api/users/10")
                 .with(postProcessor))
@@ -91,7 +91,7 @@ public class UserControllerMockMvcTest extends AdvtApplicationTests {
     }
 
     @Test
-    @WithMockUser(roles = "PUBLISHER")
+    @WithMockUser(authorities = "PUBLISHER")
     public void shouldNotCreateUserIsForbidden() throws Exception {
         UserDto testUserDto = createTestUserDto();
 

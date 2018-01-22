@@ -1,13 +1,15 @@
-import { Routes, RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {NgModule} from '@angular/core';
 
-import { HomeComponent } from './apps';
-import { LoginComponent } from './login';
-import { RegisterComponent } from './register';
+import {AppsComponent} from './apps';
+import {LoginComponent} from './login';
 import {UsersComponent} from "./users/users.component";
 import {AuthGuard} from "./guard";
 import {HomeLayoutComponent} from "./layouts/home-layout.component";
 import {LoginLayoutComponent} from "./layouts/login-layout.component";
+import {HomeComponent} from "./home/home.component";
+import {UserDetailsComponent} from "./user-details/user-details.component";
+import {AppsDetailsComponent} from "./apps-details/apps-details.component";
 
 const appRoutes: Routes = [
   {
@@ -15,8 +17,11 @@ const appRoutes: Routes = [
     component: HomeLayoutComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: 'apps',component: HomeComponent,},
-      { path: 'users', component: UsersComponent }
+      { path: 'home',component: HomeComponent,},
+      { path: 'apps', component: AppsComponent,},
+      { path: 'apps/:id', component: AppsDetailsComponent },
+      { path: 'users', component: UsersComponent },
+      { path: 'users/:id', component: UserDetailsComponent },
     ]
   },
   {
@@ -27,11 +32,6 @@ const appRoutes: Routes = [
     ]
   },
 
-  { path: 'users', component: UsersComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-
-  // otherwise redirect to home
   { path: '**', redirectTo: '' }
 ];
 

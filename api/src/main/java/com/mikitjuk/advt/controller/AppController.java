@@ -27,19 +27,18 @@ public class AppController {
     @PostMapping(Api.Apps.APP)
     public AppDto createApp(@RequestBody AppDto appDto) {
         App app = appConverter.toEntity(appDto);
-        app = appService.createNewApp(app);
+        app = appService.saveApp(app);
         return appConverter.convertEntityToDto(app);
     }
 
     @PutMapping(Api.Apps.APP)
     public AppDto updateApp(@RequestBody AppDto appDto) {
         App app = appConverter.toEntity(appDto);
-        app = appService.updateApp(app);
+        app = appService.saveApp(app);
         return appConverter.convertEntityToDto(app);
     }
 
     @DeleteMapping(Api.Apps.APPS_BY_ID)
-//    @PreAuthorize("hasAnyRole('PUBLISHER', 'ADOPS')")
     public void deleteApp(@PathVariable("id") Integer appId) {
         appService.deleteApp(appId);
     }

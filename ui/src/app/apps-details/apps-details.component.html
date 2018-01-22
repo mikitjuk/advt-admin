@@ -1,0 +1,44 @@
+<div class="col-md-6 col-md-offset-3">
+  <section *ngIf="app">
+    <section>
+      <h4>You selected: {{app.name}}</h4>
+    </section>
+    <section>
+      <form (ngSubmit)="saveAppDetails()" #appForm="ngForm">
+        <div>
+          <label for="name">Name: </label>
+          <input type="text" name="name" required [(ngModel)]="app.name" #name="ngModel">
+          <div [hidden]="name.valid || name.pristine" class="error">
+            Name is required!
+          </div>
+        </div>
+        <div>
+          <label for="type">Type: </label>
+          <input type="text" name="type" required [(ngModel)]="app.type" #type="ngModel">
+          <div [hidden]="type.valid || type.pristine" class="error">
+            Type is required!
+          </div>
+        </div>
+        <div>
+          <label for="user">User: </label>
+          <input type="text" name="user" required [(ngModel)]="app.userId" #type="ngModel">
+          <div [hidden]="user.valid || user.pristine" class="error">
+            User is required!
+          </div>
+        </div>
+
+        <!--<div>-->
+          <!--<label for="content_type">Content_types:</label>-->
+          <!--<select name="role" [(ngModel)]="app.role" class="browser-default">-->
+            <!--<option *ngFor="let role of roles" [value]="role">{{role}}</option>-->
+          <!--</select>-->
+        <!--</div>-->
+        <p></p>
+        <div class="form-group">
+          <button type="submit" [disabled]="!appForm.form.valid" class="btn btn-primary">Save</button>
+          <button (click)="gotoappsList()" class="btn btn-primary">Back to apps list</button>
+        </div>
+      </form>
+    </section>
+  </section>
+</div>

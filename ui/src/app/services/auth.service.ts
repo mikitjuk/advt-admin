@@ -10,7 +10,7 @@ export class AuthService {
 
   login(username: string, email: string) {
     return this.http.post(
-          AppComponent.API_URL + '/api/authenticate',
+          AppComponent.API_URL + '/authenticate',
         { name: username, email: email },
         {observe: 'response'})
       .map((response: HttpResponse<any> ) => {
@@ -33,5 +33,6 @@ export class AuthService {
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('jwt-token');
+    localStorage.removeItem('currentUser');
   }
 }

@@ -25,8 +25,7 @@ public class SecurityProviderService {
 	public boolean checkRole(UserRole userRole) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		log.info(" Authentication = " + authentication.getAuthorities());
-		log.info("\n" + authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_" + userRole.toString())) + "\n");
-		return authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_" + userRole.toString()));
+		return authentication.getAuthorities().contains(new SimpleGrantedAuthority(userRole.toString()));
 	}
 
 	public User getLoginUser() {
@@ -38,8 +37,8 @@ public class SecurityProviderService {
 		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
 
-	public void checkAccessUsers(User user, UserRole userRoleChecked) {
-		if (!checkRole(UserRole.ADMIN) && Objects.nonNull(user) && !user.getRole().equals(userRoleChecked)) {
+	public void checkAccessUsers(User user) {
+		if (!checkRole(UserRole.ADMIN) && Objects.nonNull(user) && !user.getRole().equals(UserRole.PUBLISHER)) {
 			throw new ForbiddenException("Not allow role user");
 		}
 	}

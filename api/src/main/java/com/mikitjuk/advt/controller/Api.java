@@ -14,8 +14,6 @@ public interface Api {
         String USER = "/user";
         String USERS = "/users";
         String USERS_BY_ID = USERS + ID;
-        String USERS_BLOCK = USERS_BY_ID + "/blocked";
-        String USER_CHANGE_PASSWORD = USERS_BY_ID + "/password_changing";
     }
 
     interface Apps {

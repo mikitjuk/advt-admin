@@ -28,23 +28,23 @@ public class UserService {
                 : userRepository.findAll();
     }
 
-    public User createNewUser(User user) {
-        securityProviderService.checkAccessUsers(user, UserRole.PUBLISHER);
-        return userRepository.save(user);
-    }
-
-    public User updateUser(User user) {
-        securityProviderService.checkAccessUsers(user, UserRole.PUBLISHER);
+    public User saveUser(User user) {
+        securityProviderService.checkAccessUsers(user);
         return userRepository.save(user);
     }
 
     public void deleteUser(Integer userId) {
-        securityProviderService.checkAccessUsers(userRepository.getOne(userId), UserRole.PUBLISHER);
+        securityProviderService.checkAccessUsers(userRepository.getOne(userId));
         userRepository.deleteById(userId);
     }
 
     public User authenticate(String email) throws AuthenticationCredentialsNotFoundException {
         return Optional.ofNullable(userRepository.findByEmail(email))
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+    }
+
+    public User getUserById(Integer userId) {
+        return userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
 }

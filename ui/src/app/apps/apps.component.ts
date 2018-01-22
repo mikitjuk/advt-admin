@@ -8,12 +8,11 @@ import { UserService, ApplicationService } from '../services';
   templateUrl: 'apps.component.html'
 })
 
-export class HomeComponent implements OnInit {
+export class AppsComponent implements OnInit {
   currentUser: User;
   apps: Application[] = [];
 
-  constructor(private userService: UserService, private applicationService: ApplicationService) {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  constructor(private applicationService: ApplicationService) {
   }
 
   ngOnInit() {

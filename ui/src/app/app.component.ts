@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  static API_URL="http://localhost:8080";
+  static API_URL="http://localhost:8080/api";
   static API_URL_USERS="http://localhost:8080/api/users";
   static API_URL_APPS="http://localhost:8080/api/apps";
 }

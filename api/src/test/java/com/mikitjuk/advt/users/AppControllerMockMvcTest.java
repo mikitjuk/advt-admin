@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AppControllerMockMvcTest extends AdvtApplicationTests {
 
     @Test
-    @WithMockUser(roles = "ADOPS")
+    @WithMockUser(authorities = "ADOPS")
     public void getApps() throws Exception {
         mockMvc.perform(get("/api/apps")
                 .with(postProcessor))
@@ -31,7 +31,7 @@ public class AppControllerMockMvcTest extends AdvtApplicationTests {
     }
 
     @Test
-    @WithMockUser(username = "test12@test.com", roles = "PUBLISHER")
+    @WithMockUser(username = "test12@test.com", authorities = "PUBLISHER")
     public void getAppsByPublisher() throws Exception {
         mockMvc.perform(get("/api/apps")
                 .with(postProcessor))
@@ -43,7 +43,7 @@ public class AppControllerMockMvcTest extends AdvtApplicationTests {
     @ExpectedDatabase(value = "classpath:datasets/expected/ExpectedCreateApps.xml",
             table = "apps",
             assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
-    @WithMockUser(username = "test12@test.com", roles = "PUBLISHER")
+    @WithMockUser(username = "test12@test.com", authorities = "PUBLISHER")
     public void shouldAddApp() throws Exception {
         AppDto appDto = createTestAppDto();
 
@@ -58,7 +58,7 @@ public class AppControllerMockMvcTest extends AdvtApplicationTests {
     }
 
     @Test
-    @WithMockUser(roles = "ADMIN")
+    @WithMockUser(authorities = "ADMIN")
     public void shouldNotAddApp_forbidden() throws Exception {
         AppDto appDto = createTestAppDto();
 
@@ -72,7 +72,7 @@ public class AppControllerMockMvcTest extends AdvtApplicationTests {
     @ExpectedDatabase(value = "classpath:datasets/expected/ExpectedUpdateApps.xml",
             table = "apps",
             assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
-    @WithMockUser(roles = "ADOPS")
+    @WithMockUser(authorities = "ADOPS")
     public void shouldUpdateApp() throws Exception {
         AppDto appDto = createTestAppDto();
         appDto.setId(10);
@@ -91,7 +91,7 @@ public class AppControllerMockMvcTest extends AdvtApplicationTests {
     @ExpectedDatabase(value = "classpath:datasets/expected/ExpectedDeleteApps.xml",
             table = "apps",
             assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED)
-    @WithMockUser(roles = "ADOPS")
+    @WithMockUser(authorities = "ADOPS")
     public void deleteApp() throws Exception {
         mockMvc.perform(delete("/api/apps/10")
                 .with(postProcessor))

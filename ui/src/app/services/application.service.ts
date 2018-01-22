@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Application } from '../models';
+import {Application, User} from '../models';
 import { AppComponent } from "../app.component";
 
 
@@ -14,7 +14,7 @@ export class ApplicationService {
   }
 
   getById(id: number) {
-    return this.http.get(AppComponent.API_URL_APPS + '/' + id);
+    return this.http.get<Application>(`${AppComponent.API_URL}/apps/${id}`)
   }
 
   create(app: Application) {
@@ -22,10 +22,10 @@ export class ApplicationService {
   }
 
   update(app: Application) {
-    return this.http.put(AppComponent.API_URL_APPS + '/' + app.id, app);
+    return this.http.put(`${AppComponent.API_URL}/apps/${app.id}`, app);
   }
 
   delete(id: number) {
-    return this.http.delete(AppComponent.API_URL_APPS + '/' + id);
+    return this.http.delete(`${AppComponent.API_URL}/apps/${id}`);
   }
 }

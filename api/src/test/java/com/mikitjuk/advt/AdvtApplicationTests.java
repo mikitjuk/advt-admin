@@ -31,7 +31,6 @@ import javax.sql.DataSource;
 		mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
 @AutoConfigureCache
 //@DatabaseTearDown(value = "classpath:datasets/Clear.xml", type = DatabaseOperation.DELETE_ALL)
-@DbUnitConfiguration(databaseConnection = "oracleConnection")
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 public abstract class AdvtApplicationTests {
@@ -42,24 +41,10 @@ public abstract class AdvtApplicationTests {
 	protected ObjectMapper objectMapper;
 	@Autowired
 	protected ApplicationContext applicationContext;
-//	@Autowired
-//	private DataSource dataSource;
 
 	protected RequestPostProcessor postProcessor = request -> {
 		request.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		return request;
 	};
 
-//	@Before
-//	protected void setUp() throws Exception {
-//		databaseConfigBean.setDatatypeFactory(new PostgresqlDataTypeFactory(){
-//			public boolean isEnumType(String sqlTypeName) {
-//				if(sqlTypeName.equalsIgnoreCase("abc_enum")){
-//					return true;
-//				}
-//				return false;
-//			}
-//		});
-//
-//	}
 }

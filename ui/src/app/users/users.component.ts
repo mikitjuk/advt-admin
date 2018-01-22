@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ApplicationService, UserService } from "../services";
-import {Application, User} from "../models";
+import {Component, OnInit} from '@angular/core';
+import {UserService} from "../services";
+import {User} from "../models";
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
   users: User[] = [];
@@ -18,7 +18,7 @@ export class UsersComponent implements OnInit {
   }
 
   private loadUsers() {
-    this.userService.getAll().subscribe(users => { this.users = users; });
+    this.userService.getAll().subscribe(users => this.users = users);
   }
 
   deleteUser(id: number) {
