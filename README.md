@@ -21,3 +21,13 @@ To run the client, cd into the ui folder and run:
     npm install && npm start
     open http://localhost:4200
 
+Users for testing:
+
+    name                email            role        
+    "Jenna Rodriquez" - "in@nonegestas.ca" - "ADMIN"
+    "Rooney Nelson" - "luctus.sit@arcu.ca" - "ADOPS"
+    "Latifah Key" - "vitae@famesac.com" - "PUBLISHER"
+
+Authentication works only on the email field.
+
+
