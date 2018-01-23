@@ -24,6 +24,12 @@ public class AppController {
         return appConverter.convertEntityToDto(app);
     }
 
+    @GetMapping(Api.Apps.APPS_BY_ID)
+    public AppDto getApps(@PathVariable("id") Integer appId) {
+        App app = appService.getApp(appId);
+        return appConverter.convertEntityToDto(app);
+    }
+
     @PostMapping(Api.Apps.APP)
     public AppDto createApp(@RequestBody AppDto appDto) {
         App app = appConverter.toEntity(appDto);
@@ -31,9 +37,10 @@ public class AppController {
         return appConverter.convertEntityToDto(app);
     }
 
-    @PutMapping(Api.Apps.APP)
-    public AppDto updateApp(@RequestBody AppDto appDto) {
+    @PutMapping(Api.Apps.APPS_BY_ID)
+    public AppDto updateApp(@PathVariable("id") Integer appId, @RequestBody AppDto appDto) {
         App app = appConverter.toEntity(appDto);
+        app.setId(appId);
         app = appService.saveApp(app);
         return appConverter.convertEntityToDto(app);
     }

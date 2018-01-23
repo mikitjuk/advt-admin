@@ -1,0 +1,43 @@
+<div class="col-md-6 col-md-offset-3">
+  <section>
+    <h4>Create user </h4>
+  </section>
+  <section ngForm="app">
+    <section>
+      <form (ngSubmit)="register()" #appForm="ngForm" novalidate>
+        <div>
+          <label for="name">Name: </label>
+          <input type="text" name="name" required [(ngModel)]="app.name" #name="ngModel">
+          <div [hidden]="name.valid || name.pristine" class="error">
+            Name is required!
+          </div>
+        </div>
+        <div>
+          <label for="type">Type: </label>
+          <input type="text" name="type" required [(ngModel)]="app.type" #type="ngModel">
+          <div [hidden]="type.valid || type.pristine" class="error">
+            Type is required!
+          </div>
+        </div>
+        <div>
+          <label for="user">User: </label>
+          <input type="text" name="user" required [(ngModel)]="app.userId" #user="ngModel">
+          <div [hidden]="user.valid || user.pristine" class="error">
+            User is required!
+          </div>
+        </div>
+        <div>
+          <label for="contentTypes">Content_types:</label>
+          <select multiple name="contentTypes" class="browser-default" [(ngModel)]="app.contentTypes" >
+            <option *ngFor="let content of contentTypes" [value]="content">{{content}}</option>
+          </select>
+        </div>
+        <p></p>
+        <div class="form-group">
+          <button type="submit" [disabled]="!appForm.form.valid" class="btn btn-primary">Save</button>
+          <button (click)="gotoAppsList()" class="btn btn-primary">Back to apps list</button>
+        </div>
+      </form>
+    </section>
+  </section>
+</div>

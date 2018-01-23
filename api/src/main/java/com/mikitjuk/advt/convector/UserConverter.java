@@ -14,7 +14,6 @@ public class UserConverter {
 
     public User convertDtoToEntity(UserDto userDto) {
         return User.builder()
-                .id(userDto.getId())
                 .name(userDto.getName())
                 .email(userDto.getEmail())
                 .role(userDto.getRole())

@@ -23,7 +23,6 @@ public class AppConverter {
                 ? new User()
                 : userRepository.getOne(appDto.getUserId());
         return App.builder()
-                .id(appDto.getId())
                 .name(appDto.getName())
                 .type(appDto.getType())
                 .user(user)

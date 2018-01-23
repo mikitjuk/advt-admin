@@ -10,7 +10,7 @@ export class ApplicationService {
   constructor(private http: HttpClient) { }
 
   getAll() {
-    return this.http.get<Application[]>(AppComponent.API_URL_APPS);
+    return this.http.get<Application[]>(`${AppComponent.API_URL}/apps`);
   }
 
   getById(id: number) {
@@ -18,7 +18,7 @@ export class ApplicationService {
   }
 
   create(app: Application) {
-    return this.http.post(AppComponent.API_URL_APPS, app);
+    return this.http.post(`${AppComponent.API_URL}/app`, app);
   }
 
   update(app: Application) {

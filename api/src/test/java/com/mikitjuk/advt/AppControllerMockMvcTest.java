@@ -1,4 +1,4 @@
-package com.mikitjuk.advt.users;
+package com.mikitjuk.advt;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;

@@ -45,6 +45,7 @@ public class UserService {
 
     public User getUserById(Integer userId) {
         return userRepository.findById(userId)
+                .map(securityProviderService::checkAccessUsers)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
     }
 }

@@ -43,6 +43,7 @@ public class UserController {
     @PutMapping(Api.Users.USERS_BY_ID)
     public UserDto updateUser(@PathVariable("id") Integer userId, @RequestBody UserDto userDto) {
         User user = userConverter.convertDtoToEntity(userDto);
+        user.setId(userId);
         user = userService.saveUser(user);
         return userConverter.convertEntityToDto(user);
     }

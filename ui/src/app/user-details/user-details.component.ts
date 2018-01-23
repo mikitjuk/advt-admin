@@ -11,7 +11,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class UserDetailsComponent implements OnInit, OnDestroy {
   user: User;
   sub: any;
-  roles: string[] = ['ADMIN', 'ADONS', 'PUBLISHER'];
+  roles: string[] = ['ADMIN', 'ADOPS', 'PUBLISHER'];
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
@@ -33,9 +33,10 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   }
 
   saveUserDetails(){
-    this.userService
-      .update(this.user)
-      .subscribe(r => console.log(`saved!!! ${JSON.stringify(this.user)}`));
+    console.log(this.user.id);
+      this.userService
+        .update(this.user)
+        .subscribe(r => console.log(`updated!!! ${JSON.stringify(this.user)}`));
     this.router.navigate(['/users']);
   }
 

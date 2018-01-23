@@ -21,22 +21,21 @@
         </div>
         <div>
           <label for="user">User: </label>
-          <input type="text" name="user" required [(ngModel)]="app.userId" #type="ngModel">
+          <input type="text" name="user" required [(ngModel)]="app.userId" #user="ngModel">
           <div [hidden]="user.valid || user.pristine" class="error">
             User is required!
           </div>
         </div>
-
-        <!--<div>-->
-          <!--<label for="content_type">Content_types:</label>-->
-          <!--<select name="role" [(ngModel)]="app.role" class="browser-default">-->
-            <!--<option *ngFor="let role of roles" [value]="role">{{role}}</option>-->
-          <!--</select>-->
-        <!--</div>-->
+        <div>
+          <label for="contentTypes">Content_types:</label>
+          <select multiple name="contentTypes" class="browser-default" [(ngModel)]="app.contentTypes" >
+            <option *ngFor="let content of contentTypes" [value]="content">{{content}}</option>
+          </select>
+        </div>
         <p></p>
         <div class="form-group">
           <button type="submit" [disabled]="!appForm.form.valid" class="btn btn-primary">Save</button>
-          <button (click)="gotoappsList()" class="btn btn-primary">Back to apps list</button>
+          <button (click)="gotoAppsList()" class="btn btn-primary">Back to apps list</button>
         </div>
       </form>
     </section>

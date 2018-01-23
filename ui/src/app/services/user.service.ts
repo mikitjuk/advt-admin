@@ -18,7 +18,7 @@ export class UserService {
   }
 
   create(user: User) {
-    return this.http.post(AppComponent.API_URL_USERS, user);
+    return this.http.post(`${AppComponent.API_URL}/user`, user);
   }
 
   update(user: User) {

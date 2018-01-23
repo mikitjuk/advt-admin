@@ -37,15 +37,17 @@ public class SecurityProviderService {
 		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
 
-	public void checkAccessUsers(User user) {
+	public User checkAccessUsers(User user) {
 		if (!checkRole(UserRole.ADMIN) && Objects.nonNull(user) && !user.getRole().equals(UserRole.PUBLISHER)) {
 			throw new ForbiddenException("Not allow role user");
 		}
+		return user;
 	}
 
-	public void checkAccessApps(App app) {
+	public App checkAccessApps(App app) {
 		if (checkRole(UserRole.PUBLISHER) && !app.getUser().getEmail().equals(getEmailLoginUser())) {
-			throw new ForbiddenException("User registration only our app");
+			throw new ForbiddenException("User does not have access to app");
 		}
+		return app;
 	}
 }

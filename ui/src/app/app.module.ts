@@ -18,7 +18,9 @@ import { HomeLayoutComponent } from "./layouts/home-layout.component";
 import { LoginLayoutComponent } from "./layouts/login-layout.component";
 import { HomeComponent } from './home/home.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
-import { AppsDetailsComponent } from './apps-details/apps-details.component';
+import { AppDetailsComponent } from './app-details/app-details.component';
+import { UserRegisterComponent } from './user-register/user-register.component';
+import { AppRegisterComponent } from './app-register/app-register.component';
 
 @NgModule({
   imports: [
@@ -39,7 +41,9 @@ import { AppsDetailsComponent } from './apps-details/apps-details.component';
     HeaderComponent,
     HomeComponent,
     UserDetailsComponent,
-    AppsDetailsComponent
+    AppDetailsComponent,
+    UserRegisterComponent,
+    AppRegisterComponent
   ],
   providers: [
     AuthGuard,

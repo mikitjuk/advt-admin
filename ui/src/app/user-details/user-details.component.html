@@ -8,16 +8,11 @@
       <div>
         <label for="name">Name: </label>
         <input type="text" name="name" required [(ngModel)]="user.name" #name="ngModel">
-        <div [hidden]="name.valid || name.pristine" class="error">
-          Name is required!
-        </div>
-        <p>
-          input "name" class is: {{ name.className }}
-        </p>
+        <div [hidden]="name.valid || name.pristine" class="error"> Name is required! </div>
       </div>
       <div>
         <label for="email">Email: </label>
-        <input type="text" name="Email" required [(ngModel)]="user.email" #email="ngModel">
+        <input type="text" name="email" required [(ngModel)]="user.email" #email="ngModel">
         <div [hidden]="email.valid || email.pristine" class="error">
           Email is required!
         </div>

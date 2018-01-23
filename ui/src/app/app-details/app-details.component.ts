@@ -1,19 +1,20 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {ApplicationService} from "../services";
+import {AlertService, ApplicationService} from "../services";
 import {Application} from "../models";
 
 @Component({
   selector: 'app-apps-details',
-  templateUrl: './apps-details.component.html',
-  styleUrls: ['./apps-details.component.css']
+  templateUrl: './app-details.component.html',
+  styleUrls: ['./app-details.component.css']
 })
-export class AppsDetailsComponent implements OnInit, OnDestroy {
+export class AppDetailsComponent implements OnInit, OnDestroy {
   app: Application;
   sub: any;
-
+  contentTypes: string[] = ['VIDEO', 'IMAGE', 'HTML'];
 
   constructor(private appService: ApplicationService,
+              private alertService: AlertService,
               private route: ActivatedRoute,
               private router: Router) {
   }
@@ -31,18 +32,24 @@ export class AppsDetailsComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  saveAppsDetails(){
+  saveAppDetails(){
     this.appService
       .update(this.app)
-      .subscribe(r => console.log(`saved!!! ${JSON.stringify(this.app)}`));
-    this.backStart();
+      .subscribe(
+        data => {
+          this.alertService.success('Update successful', true);
+          this.backStart();
+        },
+        error => {
+          this.alertService.error(error);
+        });
   }
 
   private backStart() {
     this.router.navigate(['/apps']);
   }
 
-  gotoUsersList(){
+  gotoAppsList(){
     this.backStart();
   }
 

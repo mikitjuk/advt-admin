@@ -11,6 +11,8 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
 
@@ -23,14 +25,16 @@ import java.util.Set;
 @Entity
 public class App {
 
-    public static final String USER = "user";
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "apps_id_seq")
     @SequenceGenerator(name = "apps_id_seq", sequenceName = "apps_id_seq", allocationSize = 1)
     private Integer id;
+
+    @NotNull
+    @Size(min = 2, max = 255)
     private String name;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "type")
     @Type(type = "pgsql_enum")

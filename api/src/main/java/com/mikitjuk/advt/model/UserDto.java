@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 @Builder
 public class UserDto {
+    //read only
     private Integer id;
     private String name;
     private String email;
